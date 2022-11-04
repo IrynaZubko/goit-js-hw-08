@@ -61,6 +61,10 @@ function onInputChange(event) {
 function onFormSubmit(event) {
   event.preventDefault();
 
+  if (!formEl.name.value) {
+    return alert("Please, fill in all the fields!");
+  }
+
   console.log(savedData);
   event.currentTarget.reset();
   savedData = remove(STORAGE_KEY);
