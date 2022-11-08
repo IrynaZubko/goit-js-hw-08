@@ -61,7 +61,7 @@ function onInputChange(event) {
 function onFormSubmit(event) {
   event.preventDefault();
 
-  if (formEl.elements.message.value === "" || formEl.elements.email.value === "") {
+  if (!formEl.elements.message.value || !formEl.elements.email.value) {
     return alert("Please, fill in all the fields!");
   }
 
