@@ -36,7 +36,7 @@ export default {
   remove,
 };
 
-const formData = {};
+let formData = {};
 let savedData = load(STORAGE_KEY);
 
 formEl.addEventListener('input', throttle(onInputChange, 500));
@@ -45,13 +45,6 @@ formEl.addEventListener('submit', onFormSubmit);
 populateInputs();
 
 function onInputChange(event) {
-  if (savedData) {
-    Object.keys(savedData).map(key => {
-      formData[key] = savedData[key];
-      return;
-    });
-  }
-
   formData[event.target.name] = event.target.value;
 
   save(STORAGE_KEY, formData);
@@ -68,11 +61,14 @@ function onFormSubmit(event) {
   console.log(savedData);
   event.currentTarget.reset();
   savedData = remove(STORAGE_KEY);
+  formData = {};
 }
 
 function populateInputs() {
   if (savedData) {
     Object.keys(savedData).map(key => {
+      formData[key] = savedData[key];
+
       if (formEl.name = formEl[key]) {
         formEl[key].value = savedData[key];
       }
